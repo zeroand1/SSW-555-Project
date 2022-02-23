@@ -1,0 +1,199 @@
+0 NOTE Samarth Kapuria (10468022)
+0 HEAD
+1 SOUR Family Echo
+2 WWW http://www.familyecho.com/
+1 FILE My Family
+1 DATE 6 FEB 2022
+1 DEST ANSTFILE
+1 GEDC
+2 VERS 5.5.1
+2 FORM LINEAGE-LINKED
+1 SUBM @I1@
+2 NAME Samarth
+1 SUBN
+1 CHAR UTF-8
+0 @I1@ INDI
+1 NAME Jerome /Seinfeld/
+2 GIVN Jerome
+2 SURN Seinfeld
+2 _MARNM Seinfeld
+1 SEX M
+1 BIRT
+2 DATE 29 APR 1954
+1 FAMC @F1@
+0 @I2@ INDI
+1 NAME Morty /Seinfeld/
+2 GIVN Morty
+2 SURN Seinfeld
+2 _MARNM Seinfeld
+1 SEX M
+1 BIRT
+2 DATE 19 APR 1930
+1 FAMS @F1@
+1 FAMS @F2@
+1 FAMC @F3@
+0 @I3@ INDI
+1 NAME Helen /Jefferson/
+2 GIVN Helen
+2 SURN Jefferson
+2 _MARNM Seinfeld
+1 SEX F
+1 BIRT
+2 DATE 12 AUG 1932
+1 DEAT Y
+2 DATE 10 MAY 2003
+1 FAMS @F1@
+1 FAMC @F4@
+0 @I4@ INDI
+1 NAME Joffrey /Seinfeld/
+2 GIVN Joffrey
+2 SURN Seinfeld
+2 _MARNM Seinfeld
+1 SEX M
+1 FAMS @F3@
+0 @I5@ INDI
+1 NAME Nana /Benes/
+2 GIVN Nana
+2 SURN Benes
+2 _MARNM Seinfeld
+1 SEX F
+1 FAMS @F3@
+0 @I6@ INDI
+1 NAME Marshal /Jefferson/
+2 GIVN Marshal
+2 SURN Jefferson
+2 _MARNM Jefferson
+1 SEX M
+1 BIRT
+2 DATE 8 AUG 1883
+1 DEAT Y
+2 DATE 5 JUL 1970
+1 FAMS @F4@
+0 @I7@ INDI
+1 NAME Estelle /Jefferson/
+2 GIVN Estelle
+2 SURN Jefferson
+2 _MARNM Costanza
+1 SEX F
+1 BIRT
+2 DATE 9 JUL 1934
+1 FAMS @F5@
+1 FAMC @F4@
+0 @I8@ INDI
+1 NAME Leo /Seinfeld/
+2 GIVN Leo
+2 SURN Seinfeld
+2 _MARNM Seinfeld
+1 SEX M
+1 BIRT
+2 DATE 12 MAR 1928
+1 FAMS @F6@
+1 FAMS @F7@
+1 FAMC @F3@
+0 @I9@ INDI
+1 NAME Maria /Banya/
+2 GIVN Maria
+2 SURN Banya
+2 _MARNM Seinfeld
+1 SEX F
+1 BIRT
+2 DATE 10 OCT 1929
+1 DEAT Y
+2 DATE 14 MAY 2000
+1 FAMS @F7@
+0 @I10@ INDI
+1 NAME Laura /Steinberner/
+2 GIVN Laura
+2 SURN Steinberner
+2 _MARNM Steinberner
+1 SEX F
+1 BIRT
+2 DATE 11 JAN 1934
+1 FAMS @F6@
+0 @I11@ INDI
+1 NAME Frank /Costanza/
+2 GIVN Frank
+2 SURN Costanza
+2 _MARNM Costanza
+1 SEX M
+1 BIRT
+2 DATE 8 JUN 1927
+1 DEAT Y
+2 DATE 11 MAY 2020
+1 FAMS @F5@
+0 @I12@ INDI
+1 NAME George /Costanza/
+2 GIVN George
+2 SURN Costanza
+2 _MARNM Costanza
+1 SEX M
+1 BIRT
+2 DATE 10 JUL 1957
+1 FAMC @F5@
+0 @I13@ INDI
+1 NAME Cosmo /Kramer/
+2 GIVN Cosmo
+2 SURN Kramer
+2 _MARNM Kramer
+1 SEX M
+1 BIRT
+2 DATE 12 DEC 1954
+1 FAMC @F2@
+2 PEDI birth
+0 @I14@ INDI
+1 NAME Babs /Benes/
+2 GIVN Babs
+2 SURN Benes
+2 _MARNM Kramer
+1 SEX F
+1 BIRT
+2 DATE 13 MAY 1920
+1 FAMS @F2@
+0 @F1@ FAM
+1 HUSB @I2@
+1 WIFE @I3@
+1 CHIL @I1@
+1 MARR
+2 DATE 11 JUL 1945
+1 _CURRENT Y
+1 _PRIMARY Y
+0 @F2@ FAM
+1 HUSB @I2@
+1 WIFE @I14@
+1 CHIL @I13@
+1 _CURRENT N
+1 _PRIMARY N
+0 @F3@ FAM
+1 HUSB @I4@
+1 WIFE @I5@
+1 CHIL @I2@
+1 CHIL @I8@
+1 _CURRENT Y
+1 _PRIMARY Y
+0 @F4@ FAM
+1 HUSB @I6@
+1 CHIL @I3@
+1 CHIL @I7@
+1 _CURRENT N
+1 _PRIMARY N
+0 @F5@ FAM
+1 HUSB @I11@
+1 WIFE @I7@
+1 CHIL @I12@
+1 _CURRENT Y
+1 _PRIMARY Y
+0 @F6@ FAM
+1 HUSB @I8@
+1 WIFE @I10@
+1 _CURRENT Y
+1 _PRIMARY Y
+0 @F7@ FAM
+1 HUSB @I8@
+1 WIFE @I9@
+1 MARR
+2 DATE 14 JUN 1946
+1 EVEN
+2 TYPE Ending
+1 _CURRENT N
+1 _PRIMARY N
+0 TRLR
