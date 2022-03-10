@@ -8,7 +8,6 @@ import sys
 
 
 from prettytable import PrettyTable
-from userStories import story_validation
 
 validTags = ['NAME', 'SEX', 'FAMS', ' FAMC', 'MARR', 'BIRT', 'WIFE', 'HUSB', 'CHIL', 'DEAT', 'DIV', 'DATE', 'HEAD','TRLR', 'NOTE',
              'INDI', 'FAM']
@@ -207,13 +206,12 @@ def main():
         print("[!!] File \"%s\" does not exist.\nExiting..." % path)
         exit(-1)
 
-    # Check for user stories
-    story_validation(individual, families)
 
     #printing values
     printSummary(individual, families)
+    return (individual, families)
 
-# function for printing the list of individuals and families to
+
 def printSummary(individual, families):
    
     # for printing Individuals

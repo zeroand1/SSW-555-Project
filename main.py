@@ -1,5 +1,6 @@
 from gedcom.element.individual import IndividualElement
 from gedcom.parser import Parser
+from gedcom.element.family import FamilyElement
 import gedcom
 import datetime
 from prettytable import PrettyTable
@@ -46,7 +47,7 @@ for element in root_child_elements:
         #         # print(two.get_name())
 
 
-x.field_names  = ['ID', 'Name','Gender','Birthdate', 'Age', 'Alive','Death']
+x.field_names = ['ID', 'Name', 'Gender', 'Birthdate', 'Age', 'Alive', 'Death']
 # headers = ['ID', 'Name','Gender','Birthdate', 'Age', 'Alive', 'Death', 'Child', 'Spouse']
 rows = []
 for element in unique_individuals:
@@ -59,7 +60,7 @@ for element in unique_individuals:
         deathyear = None
         birthdate = datetime.datetime.strptime(element.get_birth_data()[0], '%d %b %Y')
         deathyear = element.get_death_year()
-        if deathyear>0:
+        if deathyear > 0:
             age = deathyear - birthdate.year
         else:
             today = datetime.datetime.today()
@@ -82,17 +83,41 @@ for element in unique_individuals:
     # temp_row.append(element.get_family_members()[1])
     x.add_row(temp_row)
 
-
-y.field_names = ['ID', 'Married','Divorced','Husband ID', 'Husband Name', 'WideID','Wife Name']
-rows_y = []
-print(unique_family.__len__())
-for element in unique_family:
-    temp_row = []
-    print(element)
-    # for member in gedcom_parser.get_family_members(element):
-    #     print(member)
-
 print(x)
-print(y)
+truly_familiar = []
+for memba in gedcom_parser.get_element_list():
+
+    if FamilyElement.is_family(memba):
+        truly_familiar.append(memba)
+
+# print(truly_familiar)
+for famboy in truly_familiar:
+    # print(famboy.get_child_elements())
+    for chill in famboy.get_child_elements():
+        print(chill);
+
+    print("-------------------------------")
+    # print(famboy.get_child_elements())
+y.field_names = ['ID', 'Married', 'Divorced', 'Husband ID', 'Husband Name', 'WifeID', 'Wife Name']
+rows_y = []
+# print(truly_familiar)
+for famboy in truly_familiar:
+    temp_row = []
+    temp_row.append(famboy.get_pointer())
+    # print(famboy.get_child_elements())
+    for chill in famboy.get_child_elements():
+        if chill.get_tag() == "MARR":
+            print(chill.get_child_elements())
+        print(chill)
+    print("-------------------------------")
+# print(unique_family.__len__())
+# for element in unique_family:
+#     temp_row = []
+#     print(element)
+#     # for member in gedcom_parser.get_family_members(element):
+#     #     print(member)
+#
+
+# print(y)
 
 
