@@ -66,12 +66,7 @@ class familyClass(object):
         self.divorce = None  # divorce event in family
 
 
-
-
-
-
-# Function to Parse the GEDCOM file
-def GEDCOMParser(filename):
+def GEDCOMParser(filename,unitTestBool = False):
     individual = []
     family = []
     gedlist = []

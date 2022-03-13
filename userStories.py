@@ -11,9 +11,10 @@ def error_dealer(storyType,definition, location):
     print(formatted)
 
 
+#------User Story 5-----------------------------
 def marriage_before_death(individuals, families):
     allOk = True
-    error_type = "US05"
+    story_number = "US05"
     for family in families:
         if family.marriage:
             husband = None
@@ -30,19 +31,20 @@ def marriage_before_death(individuals, families):
                     allOk = False
                     error_descrip = "Death of Wife occured before marriage"
                     error_location = [wife.uid]
-                    error_dealer(error_type, error_descrip, error_location)
+                    error_dealer(story_number, error_descrip, error_location)
 
             if husband.alive == False:
                 if husband.deathDate < family.marriage:
                     allOk = False
                     error_descrip = "Death of Husband occured before marriage"
                     error_location = [husband.uid]
-                    error_dealer(error_type, error_descrip, error_location)
+                    error_dealer(story_number, error_descrip, error_location)
 
 
     return allOk
 
 
+#------User Story 9--------------------------
 def birth_before_parents_marry(indi, families):
     story_number = "US09"
     allOk = True
@@ -65,5 +67,5 @@ def birth_before_parents_marry(indi, families):
     return allOk
         # if fam.marriage > :
 
-(indi, families) = model.main()
-birth_before_parents_marry(indi, families)
+# (indi, families) = model.main()
+# birth_before_parents_marry(indi, families)
