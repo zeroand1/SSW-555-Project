@@ -69,3 +69,58 @@ def birth_before_parents_marry(indi, families):
 
 # (indi, families) = model.main()
 # birth_before_parents_marry(indi, families)
+
+#User Story 7
+def less_than_150_years_old(individuals, families):
+    allOk = True
+    story_number = "US07"
+    
+    for family in families:
+        individuals = None
+        
+        for indiv in individuals:
+            if indiv.uid == family.person:
+                    person = indiv
+        
+        if person.alive == False:
+            if person.deathDate > (person.birthday + 150):
+                allOk = False
+                error_descrip = "Individual was older than 150 years old"
+                error_location = [person.uid]
+                error_dealer(story_number, error_descrip, error_location)
+        
+        
+    return allOk
+
+#User Story 10
+def marriage_after_14(individuals, families):
+    story_number = "US10"
+    allOk = True
+    
+    for family in families:
+        if family.marriage:
+            husband = None
+            wife = None
+
+            for indiv in individuals:
+                if indiv.uid == family.husband:
+                    husband = indiv
+                if indiv.uid == family.wife:
+                    wife = indiv
+
+            if wife.marriage == False:
+                if wife.marriage < wife.birthday + 14:
+                    allOk = False
+                    error_descrip = "Wife married before age 14"
+                    error_location = [wife.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+
+            if husband.marriage == False:
+                if husband.marriage < husband.birthday + 14:
+                    allOk = False
+                    error_descrip = "Husband married before age 14"
+                    error_location = [husband.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+    
+    return allOk
+       
