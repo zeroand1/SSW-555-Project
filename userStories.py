@@ -1,5 +1,9 @@
 import model
 
+from datetime import datetime
+from unittest import TestCase
+
+error_locations = []
 
 def error_dealer(storyType,definition, location):
     if isinstance(location, list):
@@ -9,6 +13,58 @@ def error_dealer(storyType,definition, location):
     formatted = 'Error: "{}"  {}.Index: {}' \
         .format(storyType, definition, location)
     print(formatted)
+
+
+# US02 - Birth should occur before marriage of that individual
+def birth_before_marriage(individuals, families):
+    # For each individual check if birth occurs before marriage
+    return_status = True
+    error_type = "US02"
+    for family in families:
+        if family.marriage:
+            # Search through individuals to get husband and wife
+            husband = None
+            wife = None
+
+            for indiv in individuals:
+                if indiv.uid == family.husband:
+                    husband = indiv
+                else:
+                    wife = indiv
+                # if indiv.uid == family.wife:
+                    # wife = indiv
+
+            if husband.birthday and husband.birthday > family.marriage:
+    
+                report_error(error_type, "Birth of husband occurs after marraige", [husband.uid])
+                return_status = False
+            
+            if wife.birthday and wife.birthday > family.marriage:
+                # Found a case spouse marries before birthday
+
+                report_error(error_type, "Birth of wife occurs after marriage", [wife.uid])
+                return_status = False
+
+            
+
+    return return_status
+
+
+#US03 - Birth should occur before death of an individual.
+
+
+def birth_before_death(individuals):
+
+    return_status = True
+    
+    for individual in individuals:
+        if individual.deathDate and individual.birthday:
+            if individual.deathDate < individual.birthday:
+                report_error("US03", "Birth occurs before death.",[individual.uid])
+                return_status = False
+    return return_status
+
+
 
 
 #------User Story 5-----------------------------
@@ -124,3 +180,18 @@ def marriage_after_14(individuals, families):
     
     return allOk
        
+
+# report Error to the console
+def report_error(error_type, description, locations):
+    # report("ERROR", error_type, description, locations)
+
+    if isinstance(locations, list):
+        locations = ','.join(locations)
+
+    estr = '{:14.14s}  {:50.50s}    {:10.10s}' \
+        .format(error_type, description, locations)
+    print(estr)
+
+    error_locations.extend(locations)
+
+    error_locations.extend(locations)

@@ -1,8 +1,14 @@
 import unittest
+from unittest import TestCase
 import userStories
 import os
+from userStories import birth_before_marriage, birth_before_death
 from model import GEDCOMParser as modelParser
+from model import GEDCOMParser
+from model import individualPerson, familyClass
 
+
+file_path = 'Seinfelds.ged'
 
 def reader(path):
     if os.path.exists(path):
@@ -12,6 +18,42 @@ def reader(path):
         print("The file \"%s\" does not exist\n" % path)
         exit(-1)
 
+
+class test_birth_before_marriage(TestCase):
+    
+    def test_birth_before_marriage_1(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertTrue(birth_before_marriage(individuals, families))
+
+    def test_birth_before_marriage_2(self):
+        individuals, families = GEDCOMParser(file_path)
+        for family in families:
+            if family.marriage:
+                husband = None
+                wife = None
+                for indiv in individuals:
+                    if indiv.uid == family.husband:
+                        husband = indiv
+                    if indiv.uid == family.wife:
+                        wife = indiv
+                self.assertNotEquals(husband.birthday, wife.birthday)
+
+    # def test_birth_before_marriage_3(self):
+    #     individuals, families = GEDCOMParser(file_path)
+    #     self.assertFalse(birth_before_marriage(individuals,families))
+    def test_birth_before_marriage_3(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNot(individuals, familyClass)
+        
+    def test_birth_before_marriage_4(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNot(individuals, familyClass)
+
+   
+
+    def test_birth_before_marriage_5(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertNotIsInstance(families,individualPerson)
 
 class TestUserStory9(unittest.TestCase):
     def test_1(self):
