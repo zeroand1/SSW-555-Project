@@ -76,19 +76,19 @@ class TestUserStory9(unittest.TestCase):
 class TestUserStory5(unittest.TestCase):
     def test_1(self):
         individual, families = reader("birthb4marriage_1.ged")#good file
-        self.assertEqual(userStories.marriage_before_death(individual, families), True)
+        self.assertEqual(userStories.death_before_marriage(individual, families), True)
     def test_2(self):
         individual, families = reader("Seinfelds.ged")
-        self.assertNotEqual(userStories.marriage_before_death(individual, families), True)
+        self.assertNotEqual(userStories.death_before_marriage(individual, families), True)
     def test_3(self):
         individual, families = reader("birthb4marriage_1.ged")#for bad file
-        self.assertIsNotNone(userStories.marriage_before_death(individual, families))
+        self.assertIsNotNone(userStories.death_before_marriage(individual, families))
     def test_4(self):
         individual, families = reader("Seinfelds.ged")#for good file
-        self.assertIsNotNone(userStories.marriage_before_death(individual, families))
+        self.assertIsNotNone(userStories.death_before_marriage(individual, families))
     def test_5(self):
         individual, families = reader("birthb4marriage_1.ged")
-        self.assertTrue(userStories.marriage_before_death(individual, families))  # add assertion here
+        self.assertTrue(userStories.death_before_marriage(individual, families))  # add assertion here
 
 class TestUserStory7(unittest.TestCase):
     def test_1(self):
