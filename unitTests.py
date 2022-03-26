@@ -22,7 +22,7 @@ def reader(path):
 class test_birth_before_marriage(TestCase):
     
     def test_birth_before_marriage_1(self):
-        individuals, families = GEDCOMParser(file_path)
+        individuals, families = reader("birthb4marriage_1.ged")
         self.assertTrue(birth_before_marriage(individuals, families))
 
     def test_birth_before_marriage_2(self):
@@ -55,6 +55,32 @@ class test_birth_before_marriage(TestCase):
         individuals, families = GEDCOMParser(file_path)
         self.assertNotIsInstance(families,individualPerson)
 
+class test_birth_before_death(TestCase):
+    def test_birth_before_death1(self):
+
+        individuals, _ = GEDCOMParser(file_path)
+        self.assertTrue(birth_before_death(individuals))
+
+    def test_birth_before_death2(self):
+
+        individuals, _ = GEDCOMParser(file_path)
+        self.assertEqual(birth_before_death(individuals),True)
+
+    def test_birth_before_death3(self):
+
+        individuals, _ = GEDCOMParser(file_path)
+        self.assertIsNot(birth_before_death(individuals),False)
+
+    def test_birth_before_death4(self):
+
+        individuals, _ = GEDCOMParser(file_path)
+        self.assertIsNotNone(birth_before_death(individuals))
+
+    def test_birth_before_death5(self):
+        individuals, _ = GEDCOMParser(file_path)
+        self.assertIs(birth_before_death(individuals),True)
+
+
 class TestUserStory9(unittest.TestCase):
     def test_1(self):
         individual, families = reader("birthb4marriage_1.ged")
@@ -76,19 +102,19 @@ class TestUserStory9(unittest.TestCase):
 class TestUserStory5(unittest.TestCase):
     def test_1(self):
         individual, families = reader("birthb4marriage_1.ged")#good file
-        self.assertEqual(userStories.death_before_marriage(individual, families), True)
+        self.assertEqual(userStories.marriage_before_death(individual, families), True)
     def test_2(self):
         individual, families = reader("Seinfelds.ged")
-        self.assertNotEqual(userStories.death_before_marriage(individual, families), True)
+        self.assertNotEqual(userStories.marriage_before_death(individual, families), True)
     def test_3(self):
         individual, families = reader("birthb4marriage_1.ged")#for bad file
-        self.assertIsNotNone(userStories.death_before_marriage(individual, families))
+        self.assertIsNotNone(userStories.marriage_before_death(individual, families))
     def test_4(self):
         individual, families = reader("Seinfelds.ged")#for good file
-        self.assertIsNotNone(userStories.death_before_marriage(individual, families))
+        self.assertIsNotNone(userStories.marriage_before_death(individual, families))
     def test_5(self):
         individual, families = reader("birthb4marriage_1.ged")
-        self.assertTrue(userStories.death_before_marriage(individual, families))  # add assertion here
+        self.assertTrue(userStories.marriage_before_death(individual, families))  # add assertion here
 
 class TestUserStory7(unittest.TestCase):
     def test_1(self):

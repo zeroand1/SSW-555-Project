@@ -17,22 +17,21 @@ def error_dealer(storyType,definition, location):
 
 # US02 - Birth should occur before marriage of that individual
 def birth_before_marriage(individuals, families):
-    # For each individual check if birth occurs before marriage
+    
     return_status = True
     error_type = "US02"
     for family in families:
         if family.marriage:
-            # Search through individuals to get husband and wife
+            
             husband = None
             wife = None
 
             for indiv in individuals:
                 if indiv.uid == family.husband:
                     husband = indiv
-                else:
+             
+                if indiv.uid == family.wife:
                     wife = indiv
-                # if indiv.uid == family.wife:
-                    # wife = indiv
 
             if husband.birthday and husband.birthday > family.marriage:
     
@@ -40,7 +39,7 @@ def birth_before_marriage(individuals, families):
                 return_status = False
             
             if wife.birthday and wife.birthday > family.marriage:
-                # Found a case spouse marries before birthday
+                
 
                 report_error(error_type, "Birth of wife occurs after marriage", [wife.uid])
                 return_status = False
@@ -68,7 +67,7 @@ def birth_before_death(individuals):
 
 
 #------User Story 5-----------------------------
-def death_before_marriage(individuals, families):
+def marriage_before_death(individuals, families):
     allOk = True
     story_number = "US05"
     for family in families:
@@ -103,8 +102,12 @@ def death_before_marriage(individuals, families):
 #------User Story 9--------------------------
 def birth_before_parents_marry(indi, families):
     story_number = "US09"
-    all_ok = True
+    allOk = True
     for fam in families:
+        # print(fam.uid)
+        # print(fam.husband,fam.wife)
+        # print(fam.children)
+        # if fam.marriage:
         if fam.children:
             None
             for child in fam.children:
@@ -113,12 +116,11 @@ def birth_before_parents_marry(indi, families):
                     if person.uid == child:
                         if fam.marriage:
                             if person.birthday < fam.marriage:
-                                all_ok = False
+                                allOk = False
                                 error_dealer(story_number, "A child is born before their parent's marriage", [fam.uid, person.uid])
-                                #Diagnostic code below
                                 #print("Error in fam:"+fam.uid+". Child: "+ person.birthday.strftime('%m/%d/%Y')+" Parent's marriage: "+ fam.marriage.strftime('%m/%d/%Y'))
-    return all_ok
-
+    return allOk
+        # if fam.marriage > :
 
 # (indi, families) = model.main()
 # birth_before_parents_marry(indi, families)
@@ -174,7 +176,7 @@ def marriage_after_14(individuals, families):
                     error_descrip = "Husband married before age 14"
                     error_location = [husband.uid]
                     error_dealer(story_number, error_descrip, error_location)
-
+    
     return allOk
        
 
