@@ -2,7 +2,7 @@ import unittest
 from unittest import TestCase
 import userStories
 import os
-from userStories import birth_before_marriage, birth_before_death
+from userStories import birth_before_marriage, birth_before_death, divorce_before_death, birth_before_parents_death
 from model import GEDCOMParser as modelParser
 from model import GEDCOMParser
 from model import individualPerson, familyClass
@@ -149,6 +149,61 @@ class TestUserStory10(unittest.TestCase):
     def test_5(self):
         individual, families = reader("Seinfelds.ged")
         self.assertTrue(userStories.marriage_after_14(individual, families))  # add assertion here
+
+
+#Unit Test for US06
+class test_divorce_before_death(TestCase):
+    def test_divorce_before_death1(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertTrue(divorce_before_death(individuals, families))
+
+    def test_divorce_before_death2(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertEqual(divorce_before_death(individuals, families),True)
+
+    def test_divorce_before_death3(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNot(divorce_before_death(individuals, families),False)
+
+    def test_divorce_before_death4(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(divorce_before_death(individuals, families))
+
+    def test_divorce_before_death5(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIs(divorce_before_death(individuals, families),True)
+
+#Unit Test for US09
+class test_birth_before_parents_death(TestCase):
+    def test_birth_before_parents_death1(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertTrue(birth_before_parents_death(individuals, families))
+
+    def test_birth_before_parents_death2(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertEqual(birth_before_parents_death(individuals, families),True)
+
+    def test_birth_before_parents_death3(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNot(birth_before_parents_death(individuals, families),False)
+
+    def test_birth_before_parents_death4(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(birth_before_parents_death(individuals, families))
+
+    def test_birth_before_parents_death5(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIs(birth_before_parents_death(individuals, families),True)
+
+
 
 if __name__ == '__main__':
     unittest.main()

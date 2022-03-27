@@ -2,6 +2,7 @@ import model
 
 from datetime import datetime
 from unittest import TestCase
+from dateutil.relativedelta import relativedelta
 
 error_locations = []
 
@@ -13,6 +14,8 @@ def error_dealer(storyType,definition, location):
     formatted = 'Error: "{}"  {}.Index: {}' \
         .format(storyType, definition, location)
     print(formatted)
+
+
 
 
 # US02 - Birth should occur before marriage of that individual
@@ -179,6 +182,91 @@ def marriage_after_14(individuals, families):
     
     return allOk
        
+
+################## Sprint 2 ##################
+
+#------User Story 6-----------------------------
+def divorce_before_death(individuals, families):
+    allOk = True
+    story_number = "US06"
+    for family in families:
+        if family.marriage and family.divorce:
+            husband = None
+            wife = None
+
+            for indiv in individuals:
+                if indiv.uid == family.husband:
+                    husband = indiv
+                if indiv.uid == family.wife:
+                    wife = indiv
+
+            if wife.alive == False:
+                if family.divorce > wife.deathDate:
+                    allOk = False
+                    error_descrip = "Divorce occurred after death of wife"
+                    error_location = [wife.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+
+            if husband.alive == False:
+                if husband.deathDate < family.divorce:
+                    allOk = False
+                    error_descrip = "Divorce occurred after death of husband"
+                    error_location = [husband.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+
+
+    return allOk 
+
+
+
+#------User Story 9--------------------------
+def birth_before_parents_death(individuals, families):
+    story_number = "US09"
+    allOk = True
+    for fam in families:
+        
+        husband = None
+        wife = None
+
+        for indiv in individuals:
+            if indiv.uid == fam.husband:
+                husband = indiv
+            if indiv.uid == fam.wife:
+                wife = indiv
+        
+        # husband.deathDate.month = husband.deathDate.month + 9
+
+        if husband.deathDate:
+            print("old")
+            print(husband.deathDate)
+            orgDate = husband.deathDate.strftime("%Y-%m-%d")
+            date_format = '%Y-%m-%d'
+
+            dtObj = datetime.strptime(orgDate, date_format)
+            n = 9
+            future_date = dtObj + relativedelta(months=n)
+            future_date = future_date.date()
+            print("new")
+            print(future_date)
+
+        if fam.children:
+            
+            for child in fam.children:
+             
+                for person in individuals:
+                    if person.uid == child:
+                        print("pdare")
+                        print(person.birthday)
+                        if fam.marriage and wife.deathDate and husband.deathDate:
+                            if person.birthday > wife.deathDate:
+                                allOk = False
+                                error_dealer(story_number, "A child is born after mother's death", [fam.uid, person.uid])
+                            if person.birthday > future_date:
+                                
+                                allOk = False
+                                error_dealer(story_number, "A child is born after father's death", [fam.uid, person.uid])
+                                
+    return allOk
 
 # report Error to the console
 def report_error(error_type, description, locations):
