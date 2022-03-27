@@ -1,6 +1,7 @@
 import model
 
 from datetime import datetime
+from datetime import date
 from unittest import TestCase
 from dateutil.relativedelta import relativedelta
 
@@ -102,15 +103,11 @@ def marriage_before_death(individuals, families):
     return allOk
 
 
-#------User Story 9--------------------------
+#------User Story 8--------------------------
 def birth_before_parents_marry(indi, families):
     story_number = "US09"
     allOk = True
     for fam in families:
-        # print(fam.uid)
-        # print(fam.husband,fam.wife)
-        # print(fam.children)
-        # if fam.marriage:
         if fam.children:
             None
             for child in fam.children:
@@ -121,6 +118,12 @@ def birth_before_parents_marry(indi, families):
                             if person.birthday < fam.marriage:
                                 allOk = False
                                 error_dealer(story_number, "A child is born before their parent's marriage", [fam.uid, person.uid])
+
+                            if fam.divorce:
+                                if person.birthday > date.today()+relativedelta(months=9):
+                                    allOk = False
+                                    error_dealer(story_number, "A child is after 9 months of their parents divorce",[fam.uid, person.uid])
+                                #Diagnostic Code below
                                 #print("Error in fam:"+fam.uid+". Child: "+ person.birthday.strftime('%m/%d/%Y')+" Parent's marriage: "+ fam.marriage.strftime('%m/%d/%Y'))
     return allOk
         # if fam.marriage > :
@@ -267,6 +270,56 @@ def birth_before_parents_death(individuals, families):
                                 error_dealer(story_number, "A child is born after father's death", [fam.uid, person.uid])
                                 
     return allOk
+
+#US01 - Dates Before Current Date
+def dateBeforeToday(individuals,families):
+    allOk = True
+    story_number = "US01"
+    # print(date.today())
+    for indi in individuals:
+        if indi.birthday is not None:
+            if indi.birthday > date.today():
+                allOk = False
+                error_descrip = "Birthdate in future"
+                error_location = [indi.uid]
+                error_dealer(story_number, error_descrip, error_location)
+        if indi.deathDate is not None:
+            if indi.deathDate > date.today():
+                allOk = False
+                error_descrip = "Deathdate in future"
+                error_location = [indi.uid]
+                error_dealer(story_number, error_descrip, error_location)
+    for fam in families:
+        if fam.marriage is not None:
+            if fam.marriage > date.today():
+                allOk = False
+                error_descrip = "Marriage Date in future"
+                error_location = [fam.uid]
+                error_dealer(story_number, error_descrip, error_location)
+        if fam.divorce is not None:
+            if fam.divorce > date.today():
+                allOk = False
+                error_descrip = "Divorce date in future"
+                error_location = [fam.uid]
+                error_dealer(story_number, error_descrip, error_location)
+    return allOk
+
+#US04 - Marriage before Divorce
+def marriageBeforeDivorce(individuals, families):
+    allOk = True
+    story_number = "US04"
+    for fam in families:
+        if fam.marriage is not None:
+            if fam.divorce is not None:
+                if fam.divorce < fam.marriage:
+                    allOk = False
+                    error_descrip = "Divorced before marriage"
+                    error_location = [fam.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+    return allOk
+
+(individuals, families) = model.main()
+print(marriageBeforeDivorce(individuals, families))
 
 # report Error to the console
 def report_error(error_type, description, locations):

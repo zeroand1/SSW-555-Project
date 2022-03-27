@@ -1,0 +1,44 @@
++----------+-------+------------------+-------+------------+------------+------------+----------------------------+
+|    id    |  Name |     Birthday     |  Sex  | Death Date |   Alive    |   Child    |           Spouse           |
++----------+-------+------------------+-------+------------+------------+------------+----------------------------+
+| ['@F1@'] |  @I1@ |        []        |  True |     M      | 1954-04-29 |    None    |  ['Jerome', '/Seinfeld/']  |
+| ['@F3@'] |  @I2@ | ['@F1@', '@F2@'] |  True |     M      | 1930-04-19 |    None    |  ['Morty', '/Seinfeld/']   |
+| ['@F4@'] |  @I3@ |     ['@F1@']     | False |     F      | 1932-08-12 | 2003-05-10 |  ['Helen', '/Jefferson/']  |
+|    []    |  @I4@ |     ['@F3@']     |  True |     M      |    None    |    None    | ['Joffrey', '/Seinfeld/']  |
+|    []    |  @I5@ |     ['@F3@']     |  True |     F      |    None    |    None    |    ['Nana', '/Benes/']     |
+|    []    |  @I6@ |     ['@F4@']     | False |     M      | 1883-08-08 | 1970-07-05 | ['Marshal', '/Jefferson/'] |
+| ['@F4@'] |  @I7@ |     ['@F5@']     |  True |     F      | 1934-07-09 |    None    | ['Estelle', '/Jefferson/'] |
+| ['@F3@'] |  @I8@ | ['@F6@', '@F7@'] |  True |     M      | 1928-03-12 |    None    |   ['Leo', '/Seinfeld/']    |
+|    []    |  @I9@ |     ['@F7@']     | False |     F      | 1929-10-10 | 2000-05-14 |    ['Maria', '/Banya/']    |
+|    []    | @I10@ |     ['@F6@']     |  True |     F      | 1934-01-11 |    None    | ['Laura', '/Steinberner/'] |
+|    []    | @I11@ |     ['@F5@']     | False |     M      | 1927-06-08 | 2020-05-11 |  ['Frank', '/Costanza/']   |
+| ['@F5@'] | @I12@ |        []        |  True |     M      | 1957-07-10 |    None    |  ['George', '/Costanza/']  |
+| ['@F2@'] | @I13@ |        []        |  True |     M      | 1954-12-12 |    None    |   ['Cosmo', '/Kramer/']    |
+|    []    | @I14@ |     ['@F2@']     |  True |     F      | 1920-05-13 |    None    |    ['Babs', '/Benes/']     |
++----------+-------+------------------+-------+------------+------------+------------+----------------------------+
++------+----------+------------+--------------+-------+----------------------------+------------------+----------------------------+
+| Fid  | Marriage |  Husband   | Husband Name |  Wife |         Wife Name          |     Children     |          Divorce           |
++------+----------+------------+--------------+-------+----------------------------+------------------+----------------------------+
+| @F1@ |   @I3@   |    None    |  1945-07-11  |  @I2@ |  ['Morty', '/Seinfeld/']   |     ['@I1@']     |  ['Helen', '/Jefferson/']  |
+| @F2@ |  @I14@   |    None    |     None     |  @I2@ |  ['Morty', '/Seinfeld/']   |    ['@I13@']     |    ['Babs', '/Benes/']     |
+| @F3@ |   @I5@   |    None    |     None     |  @I4@ | ['Joffrey', '/Seinfeld/']  | ['@I2@', '@I8@'] |    ['Nana', '/Benes/']     |
+| @F4@ |   None   |    None    |     None     |  @I6@ | ['Marshal', '/Jefferson/'] | ['@I3@', '@I7@'] |            None            |
+| @F5@ |   @I7@   |    None    |     None     | @I11@ |  ['Frank', '/Costanza/']   |    ['@I12@']     | ['Estelle', '/Jefferson/'] |
+| @F6@ |  @I10@   | 1943-08-13 |  1940-02-10  |  @I8@ |   ['Leo', '/Seinfeld/']    |        []        | ['Laura', '/Steinberner/'] |
+| @F7@ |   @I9@   |    None    |  1946-06-14  |  @I8@ |   ['Leo', '/Seinfeld/']    |        []        |    ['Maria', '/Banya/']    |
++------+----------+------------+--------------+-------+----------------------------+------------------+----------------------------+
+True
+.Error: "US05"  Death of Wife occured before marriage.Index: @I3@
+Error: "US05"  Death of Wife occured before marriage.Index: @I9@
+..Error: "US05"  Death of Wife occured before marriage.Index: @I3@
+Error: "US05"  Death of Wife occured before marriage.Index: @I9@
+..Error: "US09"  A child is born before their parent's marriage.Index: @F1@,@I1@
+..Error: "US09"  A child is born before their parent's marriage.Index: @F1@,@I1@
+..Error: "US09"  A child is born before their parent's marriage.Index: @F1@,@I1@
+...........
+----------------------------------------------------------------------
+Ran 20 tests in 0.022s
+
+OK
+
+

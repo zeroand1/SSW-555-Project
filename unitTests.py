@@ -81,7 +81,7 @@ class test_birth_before_death(TestCase):
         self.assertIs(birth_before_death(individuals),True)
 
 
-class TestUserStory9(unittest.TestCase):
+class TestUserStory8(unittest.TestCase):
     def test_1(self):
         individual, families = reader("birthb4marriage_1.ged")
         self.assertEqual(userStories.birth_before_parents_marry(individual, families), False)  # add assertion here
@@ -204,6 +204,40 @@ class test_birth_before_parents_death(TestCase):
         self.assertIs(birth_before_parents_death(individuals, families),True)
 
 
+class TestUserStory1(unittest.TestCase):
+    def test_1(self):
+        individual, families = reader("future_date_and_predivorced.ged")
+        self.assertEqual(userStories.dateBeforeToday(individual, families), False)  # add assertion here
+    def test_2(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertNotEqual(userStories.dateBeforeToday(individual, families), False)  # add assertion here
+    def test_3(self):
+        individual, families = reader("future_date_and_predivorced.ged")#for bad file
+        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+    def test_4(self):
+        individual, families = reader("Seinfelds.ged")#for good file
+        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+    def test_5(self):
+        individual, families = reader("future_date_and_predivorced.ged")
+        self.assertFalse(userStories.dateBeforeToday(individual, families))  # add assertion here
 
+
+class TestUserStory4(unittest.TestCase):
+    def test_1(self):
+        individual, families = reader("future_date_and_predivorced.ged")
+        self.assertEqual(userStories.marriageBeforeDivorce(individual, families), False)  # add assertion here
+    def test_2(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertNotEqual(userStories.marriageBeforeDivorce(individual, families), False)  # add assertion here
+    def test_3(self):
+        individual, families = reader("future_date_and_predivorced.ged")#for bad file
+        self.assertIsNotNone(userStories.marriageBeforeDivorce(individual, families))
+    def test_4(self):
+        individual, families = reader("Seinfelds.ged")#for good file
+        self.assertIsNotNone(userStories.marriageBeforeDivorce(individual, families))
+    def test_5(self):
+        individual, families = reader("future_date_and_predivorced.ged")
+        self.assertFalse(userStories.marriageBeforeDivorce(individual, families))  # add assertion here
 if __name__ == '__main__':
     unittest.main()
+

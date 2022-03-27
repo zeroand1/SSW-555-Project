@@ -227,4 +227,4 @@ def printSummary(individual, families):
 
     print(y)
 
-main()
+# main()
