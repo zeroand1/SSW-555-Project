@@ -132,24 +132,16 @@ def birth_before_parents_marry(indi, families):
 # birth_before_parents_marry(indi, families)
 
 #User Story 7
-def less_than_150_years_old(individuals, families):
+def less_than_150_years_old(individuals):
     allOk = True
     story_number = "US07"
     
-    for family in families:
-        individuals = None
-        
-        for indiv in individuals:
-            if indiv.uid == family.person:
-                    person = indiv
-        
-        if person.alive == False:
-            if person.deathDate > (person.birthday + 150):
+    for individual in individuals:
+            if individual.deathDate > individual.birthday + date.today()+relativedelta(years=150):
                 allOk = False
                 error_descrip = "Individual was older than 150 years old"
-                error_location = [person.uid]
+                error_location = [individual.uid]
                 error_dealer(story_number, error_descrip, error_location)
-        
         
     return allOk
 
@@ -170,14 +162,14 @@ def marriage_after_14(individuals, families):
                     wife = indiv
 
             if wife.marriage == False:
-                if wife.marriage < wife.birthday + 14:
+                if wife.marriage < wife.birthday + date.today()+relativedelta(years=14):
                     allOk = False
                     error_descrip = "Wife married before age 14"
                     error_location = [wife.uid]
                     error_dealer(story_number, error_descrip, error_location)
 
             if husband.marriage == False:
-                if husband.marriage < husband.birthday + 14:
+                if husband.marriage < husband.birthday + date.today()+relativedelta(years=14):
                     allOk = False
                     error_descrip = "Husband married before age 14"
                     error_location = [husband.uid]
@@ -335,3 +327,71 @@ def report_error(error_type, description, locations):
     error_locations.extend(locations)
 
     error_locations.extend(locations)
+    
+    
+#User Story 17
+def no_marriages_to_descendants(individuals, families):
+        all0k = True
+        story_number = "US17"
+        
+        for fam in families:
+            husband = None
+            wife = None
+        
+            for individual in families:
+                if individual.uid == fam.husband:
+                    husband = individual
+                if individual.uid == fam.wife:
+                    wife = individual
+        
+                if fam.children:
+                    for child in fam.children:
+                        if husband.marriage is not None:
+                            allOk = False
+                            error_descrip = "Husband married descendants"
+                            error_location = [husband.uid]
+                            error_dealer(story_number, error_descrip, error_location)
+                        if wife.marriage is not None:
+                            allOk = False
+                            error_descrip = "Wife married descendants"
+                            error_location = [wife.uid]
+                            error_dealer(story_number, error_descrip, error_location)
+        
+        return all0k
+
+
+
+#User Story 18
+def siblings_should_not_marry(individuals, families):
+        all0k = True
+        story_number = "US18"
+        
+        for fam in families:
+            if fam.childrean:
+                None
+                for child in fam.children:
+                    for person in individuals:
+                        if person.uid == child:
+                            if child.marriage:
+                                if child.marriage == child.marriage:
+                                    allOk = False
+                                    error_dealer(story_number, "Child married a sibling",[fam.uid, person.uid])  
+        return all0k
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

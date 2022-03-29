@@ -118,37 +118,37 @@ class TestUserStory5(unittest.TestCase):
 
 class TestUserStory7(unittest.TestCase):
     def test_1(self):
-        individual, families = reader("Seinfelds.ged")#good file
+        individual, families = GEDCOMParser(file_path)
         self.assertEqual(userStories.less_than_150_years_old(individual, families), True)
     def test_2(self):
-        individual, families = reader("Seinfelds.ged")
+        individual, families = GEDCOMParser(file_path)
         self.assertNotEqual(userStories.less_than_150_years_old(individual, families), True)
     def test_3(self):
-        individual, families = reader("Seinfelds.ged")#for bad file
+        individual, families = GEDCOMParser(file_path)
         self.assertIsNotNone(userStories.less_than_150_years_old(individual, families))
     def test_4(self):
-        individual, families = reader("Seinfelds.ged")#for good file
+        individual, families = GEDCOMParser(file_path)
         self.assertIsNotNone(userStories.less_than_150_years_old(individual, families))
     def test_5(self):
-        individual, families = reader("Seinfelds.ged")
-        self.assertTrue(userStories.less_than_150_years_old(individual, families))  # add assertion here
+        individual, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.less_than_150_years_old(individual, families)) 
 
 class TestUserStory10(unittest.TestCase):
     def test_1(self):
-        individual, families = reader("Seinfelds.ged")#good file
+        individual, families = GEDCOMParser(file_path)
         self.assertEqual(userStories.marriage_after_14(individual, families), True)
     def test_2(self):
-        individual, families = reader("Seinfelds.ged")
+        individual, families = GEDCOMParser(file_path)
         self.assertNotEqual(userStories.marriage_after_14(individual, families), True)
     def test_3(self):
-        individual, families = reader("Seinfelds.ged")#for bad file
+        individual, families = GEDCOMParser(file_path)
         self.assertIsNotNone(userStories.marriage_after_14(individual, families))
     def test_4(self):
-        individual, families = reader("Seinfelds.ged")#for good file
+        individual, families = GEDCOMParser(file_path)
         self.assertIsNotNone(userStories.marriage_after_14(individual, families))
     def test_5(self):
-        individual, families = reader("Seinfelds.ged")
-        self.assertTrue(userStories.marriage_after_14(individual, families))  # add assertion here
+        individual, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.marriage_after_14(individual, families)) 
 
 
 #Unit Test for US06
@@ -238,6 +238,40 @@ class TestUserStory4(unittest.TestCase):
     def test_5(self):
         individual, families = reader("future_date_and_predivorced.ged")
         self.assertFalse(userStories.marriageBeforeDivorce(individual, families))  # add assertion here
+        
+class TestUserStory17(unittest.TestCase):
+    def test_1(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertEqual(userStories.no_marriages_to_descendants(individual, families), True)
+    def test_2(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertNotEqual(userStories.no_marriages_to_descendants(individual, families), True)
+    def test_3(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.no_marriages_to_descendants(individual, families))
+    def test_4(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.no_marriages_to_descendants(individual, families))
+    def test_5(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.no_marriages_to_descendants(individual, families)) 
+        
+class TestUserStory18(unittest.TestCase):
+    def test_1(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertEqual(userStories.siblings_should_not_marry(individual, families), True)
+    def test_2(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertNotEqual(userStories.siblings_should_not_marry(individual, families), True)
+    def test_3(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.siblings_should_not_marry(individual, families))
+    def test_4(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.siblings_should_not_marry(individual, families))
+    def test_5(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.siblings_should_not_marry(individual, families)) 
+        
 if __name__ == '__main__':
     unittest.main()
-
