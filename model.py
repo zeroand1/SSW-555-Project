@@ -208,22 +208,40 @@ def main():
 
 
 def printSummary(individual, families):
-   
     # for printing Individuals
     x.field_names = ["id","Name","Birthday","Sex","Death Date","Alive","Child","Spouse"]
+
     for line in individual:
         attrs = vars(line)
-        x.add_row(attrs.values())
+        temp_row = []
+        temp_row.append(attrs['uid'])
+        temp_row.append(attrs['name'])
+        temp_row.append(attrs['birthday'])
+        temp_row.append(attrs['sex'])
+        temp_row.append(attrs['deathDate'])
+        temp_row.append(attrs['alive'])
+        temp_row.append(attrs['famc']) #child of what family
+        temp_row.append(attrs['fams']) #spouse of what family
+        x.add_row(temp_row)
 
     print(x)
 
 
 
     # For printing Families
-    y.field_names = ["Fid","Marriage","Husband","Husband Name","Wife","Wife Name","Children","Divorce"]
+    y.field_names = ["Fid","Marriage Date", "Divorced", "Husband ID", "Husband Name","Wife ID","Wife Name","Children"]
     for line in families:
         attrs = vars(line)
-        y.add_row(attrs.values())
+        temp_row = []
+        temp_row.append(attrs['uid'])
+        temp_row.append(attrs['marriage'])
+        temp_row.append(attrs['divorce'])
+        temp_row.append(attrs['husband'])
+        temp_row.append(attrs['husbandName'])
+        temp_row.append(attrs['wife'])
+        temp_row.append(attrs['wifeName'])
+        temp_row.append(attrs['uid'])
+        y.add_row(temp_row)
 
     print(y)
 

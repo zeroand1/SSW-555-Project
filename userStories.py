@@ -135,14 +135,21 @@ def birth_before_parents_marry(indi, families):
 def less_than_150_years_old(individuals):
     allOk = True
     story_number = "US07"
-    
+
     for individual in individuals:
-            if individual.deathDate > individual.birthday + date.today()+relativedelta(years=150):
-                allOk = False
-                error_descrip = "Individual was older than 150 years old"
-                error_location = [individual.uid]
-                error_dealer(story_number, error_descrip, error_location)
-        
+        if individual.birthday is not None:
+            if individual.deathDate:
+                if individual.deathDate > individual.birthday + relativedelta(years=150):
+                    allOk = False
+                    error_descrip = "Individual was older than 150 years old"
+                    error_location = [individual.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+            # print(individual.name,(date.today() - individual.birthday).days / 365)
+            elif ((date.today() - individual.birthday).days / 365) >= 150:
+                        allOk = False
+                        error_descrip = "Individual is older than 150 years old"
+                        error_location = [individual.uid]
+                        error_dealer(story_number, error_descrip, error_location)
     return allOk
 
 #User Story 10
@@ -161,19 +168,17 @@ def marriage_after_14(individuals, families):
                 if indiv.uid == family.wife:
                     wife = indiv
 
-            if wife.marriage == False:
-                if wife.marriage < wife.birthday + date.today()+relativedelta(years=14):
-                    allOk = False
-                    error_descrip = "Wife married before age 14"
-                    error_location = [wife.uid]
-                    error_dealer(story_number, error_descrip, error_location)
+            if 14 < (wife.birthday - family.marriage).days / 365:
+                allOk = False
+                error_descrip = "Wife married before age 14"
+                error_location = [wife.uid]
+                error_dealer(story_number, error_descrip, error_location)
 
-            if husband.marriage == False:
-                if husband.marriage < husband.birthday + date.today()+relativedelta(years=14):
-                    allOk = False
-                    error_descrip = "Husband married before age 14"
-                    error_location = [husband.uid]
-                    error_dealer(story_number, error_descrip, error_location)
+            if 14 < (husband.birthday - family.marriage).days / 365:
+                allOk = False
+                error_descrip = "Husband married before age 14"
+                error_location = [husband.uid]
+                error_dealer(story_number, error_descrip, error_location)
     
     return allOk
        
@@ -232,8 +237,8 @@ def birth_before_parents_death(individuals, families):
         # husband.deathDate.month = husband.deathDate.month + 9
 
         if husband.deathDate:
-            print("old")
-            print(husband.deathDate)
+            # print("old")
+            # print(husband.deathDate)
             orgDate = husband.deathDate.strftime("%Y-%m-%d")
             date_format = '%Y-%m-%d'
 
@@ -241,8 +246,8 @@ def birth_before_parents_death(individuals, families):
             n = 9
             future_date = dtObj + relativedelta(months=n)
             future_date = future_date.date()
-            print("new")
-            print(future_date)
+            # print("new")
+            # print(future_date)
 
         if fam.children:
             
@@ -250,8 +255,8 @@ def birth_before_parents_death(individuals, families):
              
                 for person in individuals:
                     if person.uid == child:
-                        print("pdare")
-                        print(person.birthday)
+                        # print("pdare")
+                        # print(person.birthday)
                         if fam.marriage and wife.deathDate and husband.deathDate:
                             if person.birthday > wife.deathDate:
                                 allOk = False
@@ -310,8 +315,7 @@ def marriageBeforeDivorce(individuals, families):
                     error_dealer(story_number, error_descrip, error_location)
     return allOk
 
-(individuals, families) = model.main()
-print(marriageBeforeDivorce(individuals, families))
+
 
 # report Error to the console
 def report_error(error_type, description, locations):
@@ -331,43 +335,39 @@ def report_error(error_type, description, locations):
     
 #User Story 17
 def no_marriages_to_descendants(individuals, families):
-        all0k = True
+        allOk = True
         story_number = "US17"
-        
-        for fam in families:
-            husband = None
-            wife = None
-        
-            for individual in families:
-                if individual.uid == fam.husband:
-                    husband = individual
-                if individual.uid == fam.wife:
-                    wife = individual
-        
-                if fam.children:
-                    for child in fam.children:
-                        if husband.marriage is not None:
-                            allOk = False
-                            error_descrip = "Husband married descendants"
-                            error_location = [husband.uid]
-                            error_dealer(story_number, error_descrip, error_location)
-                        if wife.marriage is not None:
-                            allOk = False
-                            error_descrip = "Wife married descendants"
-                            error_location = [wife.uid]
-                            error_dealer(story_number, error_descrip, error_location)
-        
-        return all0k
+        childOf = None
+        spouseOf = None
+        for individual in individuals:
+            if individual.famc:
+                childOf = individual.famc
+            if individual.fams:
+                spouseOf = individual.fams
+            for fam in families:
+                if fam in childOf:
+                    if fam.husband in spouseOf:
+                        allOk = False
+                        error_descrip = "Husband married descendants"
+                        error_location = [husband.uid]
+                        error_dealer(story_number, error_descrip, error_location)
+                    if fam.wife in spouseOf:
+                        allOk = False
+                        error_descrip = "Wife married descendants"
+                        error_location = [wife.uid]
+                        error_dealer(story_number, error_descrip, error_location)
+        return allOk
 
-
+# (individuals, families) = model.main()
+# print(no_marriages_to_descendants(individuals,families))
 
 #User Story 18
 def siblings_should_not_marry(individuals, families):
-        all0k = True
+        allOk = True
         story_number = "US18"
         
         for fam in families:
-            if fam.childrean:
+            if fam.children:
                 None
                 for child in fam.children:
                     for person in individuals:
@@ -376,7 +376,7 @@ def siblings_should_not_marry(individuals, families):
                                 if child.marriage == child.marriage:
                                     allOk = False
                                     error_dealer(story_number, "Child married a sibling",[fam.uid, person.uid])  
-        return all0k
+        return allOk
 
 
 
