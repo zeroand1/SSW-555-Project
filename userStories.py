@@ -349,12 +349,12 @@ def no_marriages_to_descendants(individuals, families):
                     if fam.husband in spouseOf:
                         allOk = False
                         error_descrip = "Husband married descendants"
-                        error_location = [husband.uid]
+                        error_location = [fam.husband.uid]
                         error_dealer(story_number, error_descrip, error_location)
                     if fam.wife in spouseOf:
                         allOk = False
                         error_descrip = "Wife married descendants"
-                        error_location = [wife.uid]
+                        error_location = [fam.wife.uid]
                         error_dealer(story_number, error_descrip, error_location)
         return allOk
 
@@ -379,19 +379,49 @@ def siblings_should_not_marry(individuals, families):
         return allOk
 
 
+#User Story 21
+def correct_gender_for_role(individuals, families):
+    allOk = True
+    story_number = "US21"
+    
+    for family in families:
+        if family.marriage:
+            husband = None
+            wife = None
+            
+            for indiv in individuals:
+                if indiv.uid == family.husband:
+                    husband = indiv
+                if indiv.uid == family.wife:
+                    wife = indiv
+                    
+            for husband in family.husband:
+                if husband.sex is not None:
+                    allOk = False
+                    error_descrip = "Husband gender is not Male"
+                    error_location = [husband.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+                
+            for wife in family.husband:
+                if wife.sex is not None:
+                    allOk = False
+                    error_descrip = "Wife gender is not Female"
+                    error_location = [husband.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+     
+    return allOk
 
+#User Story 15
+def fewer_than_15_siblings(individuals, families):
+    allOk = True
+    story_number = "US15"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    for family in families:
+        if family.children:
+            None
+            
+            if family.children >= 15:
+                allOk = False
+                error_dealer(story_number, "Child married a sibling",[family.uid])
+    
+    return allOk        

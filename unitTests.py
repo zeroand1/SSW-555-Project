@@ -289,5 +289,39 @@ class TestUserStory18(unittest.TestCase):
     #     individual, families = GEDCOMParser(file_path)
     #     self.assertTrue(userStories.siblings_should_not_marry(individual, families))
 
+class TestUserStory21(unittest.TestCase):
+    def test_1(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertEqual(userStories.correct_gender_for_role(individual, families), True)
+    def test_2(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertNotEqual(userStories.correct_gender_for_role(individual, families), False)
+    def test_3(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.correct_gender_for_role(individual, families))
+    def test_4(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.correct_gender_for_role(individual, families))
+    def test_5(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.correct_gender_for_role(individual, families)) 
+
+class TestUserStory15(unittest.TestCase):
+    def test_1(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertEqual(userStories.fewer_than_15_siblings(individual, families), True)
+    def test_2(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertNotEqual(userStories.fewer_than_15_siblings(individual, families), False)
+    def test_3(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.fewer_than_15_siblings(individual, families))
+    def test_4(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.fewer_than_15_siblings(individual, families))
+    def test_5(self):
+        individual, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.fewer_than_15_siblings(individual, families)) 
+
 if __name__ == '__main__':
     unittest.main()
