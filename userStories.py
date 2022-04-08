@@ -358,8 +358,6 @@ def no_marriages_to_descendants(individuals, families):
                         error_dealer(story_number, error_descrip, error_location)
         return allOk
 
-# (individuals, families) = model.main()
-# print(no_marriages_to_descendants(individuals,families))
 
 #User Story 18
 def siblings_should_not_marry(individuals, families):
@@ -424,4 +422,61 @@ def fewer_than_15_siblings(individuals, families):
                 allOk = False
                 error_dealer(story_number, "Child married a sibling",[family.uid])
     
-    return allOk        
+    return allOk
+
+
+#-----------------USER STORY 11------------
+def no_bigamy(individuals,families):
+    allOk = True
+    story_number = "US11"
+    for fam in families:
+        if fam.marriage:
+            for indi in individuals:
+                if indi.uid == fam.husband:
+                    husband = indi
+                elif indi.uid == fam.wife:
+                    wife = indi
+            for fam2 in families:
+                if fam2.marriage is not None:
+                    if fam.marriage < fam2.marriage:
+                        if fam2.husband == husband.uid and not fam2.wife == wife.uid and ((fam.divorce is not None and fam2.marriage < fam.divorce) or (fam.divorce is None and (wife.deathDate is None or fam2.marriage < wife.deathDate))):
+                            allOk = False
+                            error_descrip = "Husband remarried before end of his other marriage"
+                            error_location = [husband.uid]
+                            error_dealer(story_number, error_descrip, error_location)
+                        elif fam2.wife == wife.uid and not fam2.husband == husband.uid and ((fam.divorce is not None and fam2.marriage < fam.divorce) or (fam.divorce is None and (husband.deathDate is None or fam2.marriage < husband.deathDate))):
+                            allOk = False
+                            error_descrip = "Wife remarried before end of her other marriage"
+                            error_location = [wife.uid]
+                            error_dealer(story_number, error_descrip, error_location)
+
+    return allOk
+
+
+#-----------------USER STORY 12-------------------
+def parents_not_too_old(individuals,families):
+    allOk = True
+    story_number = "US12"
+    for fam in families:
+        for indi in individuals:
+            if indi.uid == fam.husband:
+                h_indi = indi
+            if indi.uid == fam.wife:
+                w_indi = indi
+        for indi1 in individuals:
+            if indi1.uid in fam.children:
+                if h_indi.birthday is not None and indi1.birthday > h_indi.birthday + relativedelta(years=80):
+                    allOk = False
+                    error_descrip = "Child born after 80 years of father's age"
+                    error_location = [indi1.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+                if w_indi.birthday is not None and indi1.birthday > w_indi.birthday + relativedelta(years=60):
+                    allOk = False
+                    error_descrip = "Child born after 60 years of mother's age"
+                    error_location = [indi1.uid]
+                    error_dealer(story_number, error_descrip, error_location)
+    return allOk
+
+
+(individuals, families) = model.main()
+print(parents_not_too_old(individuals, families))

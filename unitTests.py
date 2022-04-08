@@ -323,5 +323,42 @@ class TestUserStory15(unittest.TestCase):
         individual, families = GEDCOMParser(file_path)
         self.assertTrue(userStories.fewer_than_15_siblings(individual, families)) 
 
+
+class TestUserStory11(unittest.TestCase):
+    def test_1(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertEqual(userStories.dateBeforeToday(individual, families), True)  # add assertion here
+    def test_2(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertNotEqual(userStories.dateBeforeToday(individual, families), False)  # add assertion here
+    def test_3(self):
+        individual, families = reader("Seinfelds.ged")#for bad file
+        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+    def test_4(self):
+        individual, families = reader("Seinfelds.ged")#for good file
+        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+    def test_5(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertTrue(userStories.dateBeforeToday(individual, families))  # add assertion here
+
+
+class TestUserStory12(unittest.TestCase):
+    def test_1(self):
+        individual, families = reader("parents_too_old_failing.ged")
+        self.assertEqual(userStories.dateBeforeToday(individual, families), False)  # add assertion here
+    def test_2(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertNotEqual(userStories.dateBeforeToday(individual, families), False)  # add assertion here
+    def test_3(self):
+        individual, families = reader("parents_too_old_failing.ged")#for bad file
+        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+    def test_4(self):
+        individual, families = reader("Seinfelds.ged")#for good file
+        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+    def test_5(self):
+        individual, families = reader("parents_too_old_failing.ged")
+        self.assertFalse(userStories.dateBeforeToday(individual, families))  # add assertion here
+
+
 if __name__ == '__main__':
     unittest.main()
