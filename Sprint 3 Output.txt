@@ -1,0 +1,90 @@
++-------+----------------------------+------------+-----+------------+-------+----------+------------------+
+|   id  |            Name            |  Birthday  | Sex | Death Date | Alive |  Child   |      Spouse      |
++-------+----------------------------+------------+-----+------------+-------+----------+------------------+
+|  @I1@ |  ['Jerome', '/Seinfeld/']  | 1954-04-29 |  M  |    None    |  True | ['@F1@'] |        []        |
+|  @I2@ |  ['Morty', '/Seinfeld/']   | 1930-04-19 |  M  |    None    |  True | ['@F3@'] | ['@F1@', '@F2@'] |
+|  @I3@ |  ['Helen', '/Jefferson/']  | 1932-08-12 |  F  | 2003-05-10 | False | ['@F4@'] |     ['@F1@']     |
+|  @I4@ | ['Joffrey', '/Seinfeld/']  |    None    |  M  |    None    |  True |    []    |     ['@F3@']     |
+|  @I5@ |    ['Nana', '/Benes/']     |    None    |  F  |    None    |  True |    []    |     ['@F3@']     |
+|  @I6@ | ['Marshal', '/Jefferson/'] | 1883-08-08 |  M  | 1970-07-05 | False |    []    |     ['@F4@']     |
+|  @I7@ | ['Estelle', '/Jefferson/'] | 1934-07-09 |  F  |    None    |  True | ['@F4@'] |     ['@F5@']     |
+|  @I8@ |   ['Leo', '/Seinfeld/']    | 1928-03-12 |  M  |    None    |  True | ['@F3@'] | ['@F6@', '@F7@'] |
+|  @I9@ |    ['Maria', '/Banya/']    | 1929-10-10 |  F  | 2000-05-14 | False |    []    |     ['@F7@']     |
+| @I10@ | ['Laura', '/Steinberner/'] | 1934-01-11 |  F  |    None    |  True |    []    |     ['@F6@']     |
+| @I11@ |  ['Frank', '/Costanza/']   | 1927-06-08 |  M  | 2020-05-11 | False |    []    |     ['@F5@']     |
+| @I12@ |  ['George', '/Costanza/']  | 1957-07-10 |  M  |    None    |  True | ['@F5@'] |        []        |
+| @I13@ |   ['Cosmo', '/Kramer/']    | 1954-12-12 |  M  |    None    |  True | ['@F2@'] |        []        |
+| @I14@ |    ['Babs', '/Benes/']     | 1920-05-13 |  F  |    None    |  True |    []    |     ['@F2@']     |
+| @I15@ | ['Deborah', '/Jefferson/'] | 1883-09-08 |  F  | 1972-02-11 | False |    []    |     ['@F4@']     |
++-------+----------------------------+------------+-----+------------+-------+----------+------------------+
++------+---------------+------------+------------+----------------------------+---------+----------------------------+----------+
+| Fid  | Marriage Date |  Divorced  | Husband ID |        Husband Name        | Wife ID |         Wife Name          | Children |
++------+---------------+------------+------------+----------------------------+---------+----------------------------+----------+
+| @F1@ |   1945-07-11  |    None    |    @I2@    |  ['Morty', '/Seinfeld/']   |   @I3@  |  ['Helen', '/Jefferson/']  |   @F1@   |
+| @F2@ |      None     |    None    |    @I2@    |  ['Morty', '/Seinfeld/']   |  @I14@  |    ['Babs', '/Benes/']     |   @F2@   |
+| @F3@ |      None     |    None    |    @I4@    | ['Joffrey', '/Seinfeld/']  |   @I5@  |    ['Nana', '/Benes/']     |   @F3@   |
+| @F4@ |   1900-08-14  |    None    |    @I6@    | ['Marshal', '/Jefferson/'] |  @I15@  | ['Deborah', '/Jefferson/'] |   @F4@   |
+| @F5@ |      None     |    None    |   @I11@    |  ['Frank', '/Costanza/']   |   @I7@  | ['Estelle', '/Jefferson/'] |   @F5@   |
+| @F6@ |   1940-02-10  | 1943-08-13 |    @I8@    |   ['Leo', '/Seinfeld/']    |  @I10@  | ['Laura', '/Steinberner/'] |   @F6@   |
+| @F7@ |   1946-06-14  |    None    |    @I8@    |   ['Leo', '/Seinfeld/']    |   @I9@  |    ['Maria', '/Banya/']    |   @F7@   |
++------+---------------+------------+------------+----------------------------+---------+----------------------------+----------+
+True
+D:\Desktop\SSW-555\project\model.py:75: ResourceWarning: unclosed file <_io.TextIOWrapper name='future_date_and_predivorced.ged' mode='r' encoding='cp1252'>    
+  lines = [line.rstrip('\n\r') for line in open(filename)]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+Error: "US01"  Birthdate in future.Index: @I1@
+.D:\Desktop\SSW-555\project\model.py:75: ResourceWarning: unclosed file <_io.TextIOWrapper name='Seinfelds.ged' mode='r' encoding='cp1252'>
+  lines = [line.rstrip('\n\r') for line in open(filename)]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+.Error: "US01"  Birthdate in future.Index: @I1@
+..Error: "US01"  Birthdate in future.Index: @I1@
+...........D:\Desktop\SSW-555\project\model.py:75: ResourceWarning: unclosed file <_io.TextIOWrapper name='parents_too_old_failing.ged' mode='r' encoding='cp1252'>
+  lines = [line.rstrip('\n\r') for line in open(filename)]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+Error: "US12"  Child born after 80 years of father's age.Index: @I1@
+..Error: "US12"  Child born after 80 years of father's age.Index: @I1@
+..Error: "US12"  Child born after 80 years of father's age.Index: @I1@
+.....................****************List deceased******************
+['Jerome', '/Seinfeld/']
+['Morty', '/Seinfeld/']
+['Joffrey', '/Seinfeld/']
+['Nana', '/Benes/']
+['Estelle', '/Jefferson/']
+['Leo', '/Seinfeld/']
+['Laura', '/Steinberner/']
+['George', '/Costanza/']
+['Cosmo', '/Kramer/']
+['Babs', '/Benes/']
+.****************List deceased******************
+['Jerome', '/Seinfeld/']
+['Morty', '/Seinfeld/']
+['Joffrey', '/Seinfeld/']
+['Nana', '/Benes/']
+['Estelle', '/Jefferson/']
+['Leo', '/Seinfeld/']
+['Laura', '/Steinberner/']
+['George', '/Costanza/']
+['Cosmo', '/Kramer/']
+['Babs', '/Benes/']
+.****************List deceased******************
+['Jerome', '/Seinfeld/']
+['Morty', '/Seinfeld/']
+['Joffrey', '/Seinfeld/']
+['Nana', '/Benes/']
+['Estelle', '/Jefferson/']
+['Leo', '/Seinfeld/']
+['Laura', '/Steinberner/']
+['George', '/Costanza/']
+['Cosmo', '/Kramer/']
+['Babs', '/Benes/']
+.****************List deceased******************
+['Jerome', '/Seinfeld/']
+['Morty', '/Seinfeld/']
+['Joffrey', '/Seinfeld/']
+['Nana', '/Benes/']
+['Estelle', '/Jefferson/']
+['Leo', '/Seinfeld/']
+['Laura', '/Steinberner/']
+Ran 90 tests in 0.163s
+
+OK
