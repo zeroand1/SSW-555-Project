@@ -17,7 +17,20 @@ def error_dealer(storyType,definition, location):
     print(formatted)
 
 
+#US29 - List deceased
 
+def list_deceased_name(individuals,families):
+
+    return_status = True
+    count = 0
+    for individual in individuals:
+        if individual.alive:
+            count = count + 1
+            
+    if count == 0:
+        report_error("US29", "No death found.",[individual.uid])
+        return_status = True
+    return return_status
 
 # US02 - Birth should occur before marriage of that individual
 def birth_before_marriage(individuals, families):
@@ -239,6 +252,7 @@ def birth_before_parents_death(individuals, families):
         if husband.deathDate:
             # print("old")
             # print(husband.deathDate)
+            
             orgDate = husband.deathDate.strftime("%Y-%m-%d")
             date_format = '%Y-%m-%d'
 
@@ -248,6 +262,7 @@ def birth_before_parents_death(individuals, families):
             future_date = future_date.date()
             # print("new")
             # print(future_date)
+           
 
         if fam.children:
             
@@ -257,6 +272,7 @@ def birth_before_parents_death(individuals, families):
                     if person.uid == child:
                         # print("pdare")
                         # print(person.birthday)
+                        
                         if fam.marriage and wife.deathDate and husband.deathDate:
                             if person.birthday > wife.deathDate:
                                 allOk = False
@@ -390,22 +406,34 @@ def correct_gender_for_role(individuals, families):
             for indiv in individuals:
                 if indiv.uid == family.husband:
                     husband = indiv
+                   
+                    if husband.sex == "F":
+                        allOk = False
+                        error_descrip = "Husband gender is not Male"
+                        error_location = [husband.uid]
+                        error_dealer(story_number, error_descrip, error_location)
                 if indiv.uid == family.wife:
                     wife = indiv
                     
-            for husband in family.husband:
-                if husband.sex is not None:
-                    allOk = False
-                    error_descrip = "Husband gender is not Male"
-                    error_location = [husband.uid]
-                    error_dealer(story_number, error_descrip, error_location)
+                    if wife.sex == "M":
+                        allOk = False
+                        error_descrip = "Wife gender is not Female"
+                        error_location = [husband.uid]
+                        error_dealer(story_number, error_descrip, error_location)
+                    
+            # for husband in family.husband:
+            #     if husband.sex == "F":
+            #         allOk = False
+            #         error_descrip = "Husband gender is not Male"
+            #         error_location = [husband.uid]
+            #         error_dealer(story_number, error_descrip, error_location)
                 
-            for wife in family.husband:
-                if wife.sex is not None:
-                    allOk = False
-                    error_descrip = "Wife gender is not Female"
-                    error_location = [husband.uid]
-                    error_dealer(story_number, error_descrip, error_location)
+            # for wife in family.husband:
+            #     if wife.sex == "M":
+            #         allOk = False
+            #         error_descrip = "Wife gender is not Female"
+            #         error_location = [husband.uid]
+            #         error_dealer(story_number, error_descrip, error_location)
      
     return allOk
 
@@ -416,11 +444,15 @@ def fewer_than_15_siblings(individuals, families):
 
     for family in families:
         if family.children:
-            None
+            count = 0
+            for i in family.children:
+                count = count + 1
+
+
             
-            if family.children >= 15:
-                allOk = False
-                error_dealer(story_number, "Child married a sibling",[family.uid])
+    if count >= 15:
+        allOk = False
+        error_dealer(story_number, "more than 15 siblings",[family.uid])
     
     return allOk
 

@@ -2,7 +2,7 @@ import unittest
 from unittest import TestCase
 import userStories
 import os
-from userStories import birth_before_marriage, birth_before_death, divorce_before_death, birth_before_parents_death
+from userStories import list_deceased_name, birth_before_marriage, birth_before_death, divorce_before_death, birth_before_parents_death
 from model import GEDCOMParser as modelParser
 from model import GEDCOMParser
 from model import individualPerson, familyClass
@@ -327,38 +327,68 @@ class TestUserStory15(unittest.TestCase):
 class TestUserStory11(unittest.TestCase):
     def test_1(self):
         individual, families = reader("Seinfelds.ged")
-        self.assertEqual(userStories.dateBeforeToday(individual, families), True)  # add assertion here
+        self.assertEqual(userStories.no_bigamy(individual, families), True)  # add assertion here
     def test_2(self):
         individual, families = reader("Seinfelds.ged")
-        self.assertNotEqual(userStories.dateBeforeToday(individual, families), False)  # add assertion here
+        self.assertNotEqual(userStories.no_bigamy(individual, families), False)  # add assertion here
     def test_3(self):
         individual, families = reader("Seinfelds.ged")#for bad file
-        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+        self.assertIsNotNone(userStories.no_bigamy(individual, families))
     def test_4(self):
         individual, families = reader("Seinfelds.ged")#for good file
-        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+        self.assertIsNotNone(userStories.no_bigamy(individual, families))
     def test_5(self):
         individual, families = reader("Seinfelds.ged")
-        self.assertTrue(userStories.dateBeforeToday(individual, families))  # add assertion here
+        self.assertTrue(userStories.no_bigamy(individual, families))  # add assertion here
 
 
 class TestUserStory12(unittest.TestCase):
     def test_1(self):
         individual, families = reader("parents_too_old_failing.ged")
-        self.assertEqual(userStories.dateBeforeToday(individual, families), False)  # add assertion here
+        self.assertEqual(userStories.parents_not_too_old(individual, families), False)  # add assertion here
     def test_2(self):
         individual, families = reader("Seinfelds.ged")
-        self.assertNotEqual(userStories.dateBeforeToday(individual, families), False)  # add assertion here
+        self.assertNotEqual(userStories.parents_not_too_old(individual, families), False)  # add assertion here
     def test_3(self):
         individual, families = reader("parents_too_old_failing.ged")#for bad file
-        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+        self.assertIsNotNone(userStories.parents_not_too_old(individual, families))
     def test_4(self):
         individual, families = reader("Seinfelds.ged")#for good file
-        self.assertIsNotNone(userStories.dateBeforeToday(individual, families))
+        self.assertIsNotNone(userStories.parents_not_too_old(individual, families))
     def test_5(self):
         individual, families = reader("parents_too_old_failing.ged")
-        self.assertFalse(userStories.dateBeforeToday(individual, families))  # add assertion here
+        self.assertFalse(userStories.parents_not_too_old(individual, families))  # add assertion here
 
 
+      
+
+#Unit Test for US29
+
+class TestUserStory29(unittest.TestCase):
+    
+    def test_1(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.list_deceased_name(individuals, families))
+
+    def test_2(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertEqual(userStories.list_deceased_name(individuals, families),True)
+
+    def test_3(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNot(userStories.list_deceased_name(individuals, families),False)
+
+    def test_4(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.list_deceased_name(individuals, families))
+
+    def test_5(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIs(userStories.list_deceased_name(individuals, families),True)
+        
 if __name__ == '__main__':
     unittest.main()
