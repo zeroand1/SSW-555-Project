@@ -36,7 +36,7 @@ class test_birth_before_marriage(TestCase):
                         husband = indiv
                     if indiv.uid == family.wife:
                         wife = indiv
-                self.assertNotEquals(husband.birthday, wife.birthday)
+                self.assertNotEqual(husband.birthday, wife.birthday)
 
     # def test_birth_before_marriage_3(self):
     #     individuals, families = GEDCOMParser(file_path)
@@ -389,6 +389,36 @@ class TestUserStory29(unittest.TestCase):
     def test_5(self):
         individuals, families = GEDCOMParser(file_path)
         self.assertIs(userStories.list_deceased_name(individuals, families),True)
-        
+
+
+#Unit Test for US30
+
+class TestUserStory30(unittest.TestCase):
+    
+    def test_1(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.list_live_married_name(individuals, families))
+
+    def test_2(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertEqual(userStories.list_live_married_name(individuals, families),True)
+
+    def test_3(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNot(userStories.list_live_married_name(individuals, families),False)
+
+    def test_4(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.list_live_married_name(individuals, families))
+
+    def test_5(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIs(userStories.list_live_married_name(individuals, families),True)
+
+
 if __name__ == '__main__':
     unittest.main()

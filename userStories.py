@@ -17,20 +17,6 @@ def error_dealer(storyType,definition, location):
     print(formatted)
 
 
-#US29 - List deceased
-
-def list_deceased_name(individuals,families):
-
-    return_status = True
-    count = 0
-    for individual in individuals:
-        if individual.alive:
-            count = count + 1
-            
-    if count == 0:
-        report_error("US29", "No death found.",[individual.uid])
-        return_status = True
-    return return_status
 
 # US02 - Birth should occur before marriage of that individual
 def birth_before_marriage(individuals, families):
@@ -508,6 +494,53 @@ def parents_not_too_old(individuals,families):
                     error_location = [indi1.uid]
                     error_dealer(story_number, error_descrip, error_location)
     return allOk
+
+
+
+#US29 - List deceased
+
+def list_deceased_name(individuals,families):
+
+    return_status = True
+    count = 0
+    print("****************List deceased******************")
+    for individual in individuals:
+        if individual.alive:
+            count = count + 1
+            
+            print(individual.name)
+            
+    if count == 0:
+        report_error("US29", "No death found.",[individual.uid])
+        return_status = True
+    return return_status
+
+#US30 - List live married
+
+def list_live_married_name(individuals,families):
+
+    return_status = True
+    count = 0
+    print("****************List live married******************")
+    for family in families:
+        if family.marriage:
+            for indi in individuals:
+                
+                if indi.uid == family.husband and indi.alive:
+                    husband = indi
+                    print (indi.name)
+                    count = count + 1
+             
+                if indi.uid == family.wife and indi.alive:
+                    wife = indi
+                    print (indi.name)
+                    count = count + 1
+            
+    if count == 0:
+        report_error("US30", "No live married found.",[individuals.uid])
+        return_status = True
+    return return_status
+
 
 
 (individuals, families) = model.main()
