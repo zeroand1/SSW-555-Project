@@ -541,6 +541,26 @@ def list_live_married_name(individuals,families):
         return_status = True
     return return_status
 
+#User Story 31
+def list_live_single_name(individuals,families):
+
+    return_status = True
+    count = 0
+    print("Living single over 30 never married")
+    for individual in individuals:
+        if 30 < individual.birthday:
+            if individual.single:
+                if individual.marriage == False:
+                    if individual.alive:
+                        count = count + 1
+            
+                        print(individual.name)
+            
+    if count == 0:
+        report_error("US30", "no single living people over the age of 30 that have never been married.", [individual.uid])
+        return_status = True
+    return return_status
+            
 
 
 (individuals, families) = model.main()
