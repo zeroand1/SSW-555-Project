@@ -419,6 +419,34 @@ class TestUserStory30(unittest.TestCase):
         individuals, families = GEDCOMParser(file_path)
         self.assertIs(userStories.list_live_married_name(individuals, families),True)
 
+#User Story 31
+
+class TestUserStory31(unittest.TestCase):
+    
+    def test_1(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.list_live_single_name(individuals, families))
+
+    def test_2(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertEqual(userStories.list_live_single_name(individuals, families),True)
+
+    def test_3(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNot(userStories.list_live_single_name(individuals, families),False)
+
+    def test_4(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.list_live_single_name(individuals, families))
+
+    def test_5(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIs(userStories.list_live_single_name(individuals, families),True)
+
 
 if __name__ == '__main__':
     unittest.main()
