@@ -647,5 +647,18 @@ def list_recent_deaths(individuals):
                 list.append(indi.name)
     return list
 
+
+#User Story 38
+def list_upcoming_birthdays(individuals):
+    # allOk = True
+    # story_number = "US38"
+    list = []
+    for indi in individuals:
+        if indi.birthday:
+            if indi.birthday + relativedelta(days=30) <= date.today():
+                list.append(indi.name)
+    return list
+
+
 (individuals, families) = model.main()
 print(list_recent_deaths(individuals))

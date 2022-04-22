@@ -522,5 +522,14 @@ class TestUserStory36(unittest.TestCase):
         self.assertNotEqual(userStories.list_recent_deaths(individual), ["['Morty', '/Seinfeld/']"])  # add assertion here
 
 
+#UserStory 38
+class TestUserStory38(unittest.TestCase):
+    def test_1(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertEqual(userStories.list_upcoming_birthdays(individual), [])  # add assertion here
+    def test_2(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertNotEqual(userStories.list_upcoming_birthdays(individual), ["['Morty', '/Seinfeld/']"])  # add assertion here
+
 if __name__ == '__main__':
     unittest.main()
