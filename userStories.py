@@ -624,7 +624,28 @@ def list_live_single_name(individuals,families):
         return_status = True
     return return_status
             
+#User Story 35
+def list_recent_births(individuals):
+    # allOk = True
+    # story_number = "US35"
+    list = []
+    for indi in individuals:
+        if indi.birthday:
+            if indi.birthday + relativedelta(days=30) >= date.today():
+                list.append(indi.name)
+    return list
 
+
+#User Story 36
+def list_recent_deaths(individuals):
+    # allOk = True
+    # story_number = "US35"
+    list = []
+    for indi in individuals:
+        if indi.deathDate:
+            if indi.deathDate + relativedelta(days=30) >= date.today():
+                list.append(indi.name)
+    return list
 
 (individuals, families) = model.main()
-print(parents_not_too_old(individuals, families))
+print(list_recent_deaths(individuals))

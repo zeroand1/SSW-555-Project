@@ -445,7 +445,7 @@ class TestUserStory31(unittest.TestCase):
 
     def test_5(self):
         individuals, families = GEDCOMParser(file_path)
-        self.assertIs(userStories.list_live_single_name(individuals, families),True)
+        self.assertIs(userStories.list_live_single_name(individuals, families), True)
 
 
 #Unit Test for US21
@@ -502,6 +502,25 @@ class TestUserStory27(unittest.TestCase):
     def test_5(self):
         individuals, families = GEDCOMParser(file_path)
         self.assertIs(userStories.list_indi_age(individuals, families),True)
+
+#UserStory 35
+class TestUserStory35(unittest.TestCase):
+    def test_1(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertEqual(userStories.list_recent_births(individual), [])  # add assertion here
+    def test_2(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertNotEqual(userStories.list_recent_births(individual), ["['Morty', '/Seinfeld/']"])  # add assertion here
+
+#UserStory 36
+class TestUserStory36(unittest.TestCase):
+    def test_1(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertEqual(userStories.list_recent_deaths(individual), [])  # add assertion here
+    def test_2(self):
+        individual, families = reader("Seinfelds.ged")
+        self.assertNotEqual(userStories.list_recent_deaths(individual), ["['Morty', '/Seinfeld/']"])  # add assertion here
+
 
 if __name__ == '__main__':
     unittest.main()
