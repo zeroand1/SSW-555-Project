@@ -448,5 +448,60 @@ class TestUserStory31(unittest.TestCase):
         self.assertIs(userStories.list_live_single_name(individuals, families),True)
 
 
+#Unit Test for US21
+
+class TestUserStory21(unittest.TestCase):
+    
+    def test_1(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.correct_gender(individuals, families))
+
+    def test_2(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertEqual(userStories.correct_gender(individuals, families),True)
+
+    def test_3(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNot(userStories.correct_gender(individuals, families),False)
+
+    def test_4(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.correct_gender(individuals, families))
+
+    def test_5(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIs(userStories.correct_gender(individuals, families),True)
+
+
+class TestUserStory27(unittest.TestCase):
+    
+    def test_1(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertTrue(userStories.list_indi_age(individuals, families))
+
+    def test_2(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertEqual(userStories.list_indi_age(individuals, families),True)
+
+    def test_3(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNot(userStories.list_indi_age(individuals, families),False)
+
+    def test_4(self):
+
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIsNotNone(userStories.list_indi_age(individuals, families))
+
+    def test_5(self):
+        individuals, families = GEDCOMParser(file_path)
+        self.assertIs(userStories.list_indi_age(individuals, families),True)
+
 if __name__ == '__main__':
     unittest.main()

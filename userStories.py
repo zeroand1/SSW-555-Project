@@ -1,6 +1,7 @@
 import model
 
 from datetime import datetime
+import dateutil
 from datetime import date
 from unittest import TestCase
 from dateutil.relativedelta import relativedelta
@@ -541,21 +542,83 @@ def list_live_married_name(individuals,families):
         return_status = True
     return return_status
 
+
+#US21 - husband male and wife should be female
+
+def correct_gender(individuals,families):
+    
+    return_status = True
+   
+    print("****************check correct gender******************")
+    for family in families:
+            sex = ""
+            for indi in individuals:
+                if indi.uid == family.husband:
+                    if indi.sex != "M":
+                        report_error("US21", "husband not male",[indi.uid])
+                        return_status = False
+                        return return_status
+                if indi.uid == family.wife:
+                    if indi.sex != "F":
+                        report_error("US21", "wife not female.",[indi.uid])
+                        return_status = False
+                        return return_status
+    return return_status       
+   
+
+#US27 - List deceased
+
+def list_indi_age(individuals,families):
+
+    return_status = True
+    count = 0
+    print("****************list_indi_age******************")
+    for individual in individuals:
+        if individual.birthday:
+            orgDate = individual.birthday.strftime("%Y-%m-%d")
+            date_format = '%Y-%m-%d'
+
+            dtObj = datetime.strptime(orgDate, date_format)
+
+            now = datetime.utcnow()
+            now = now.date()
+            age = dateutil.relativedelta.relativedelta(now, dtObj)
+            age = age.years
+
+            print(individual.name)
+            print(age)
+            count = count + 1
+            
+    if count == 0:
+        report_error("US27", "No individual found found.",[individual.uid])
+        return_status = False
+    return return_status  
+
 #User Story 31
 def list_live_single_name(individuals,families):
 
     return_status = True
     count = 0
     print("Living single over 30 never married")
-    for individual in individuals:
-        if 30 < individual.birthday:
-            if individual.single:
-                if individual.marriage == False:
-                    if individual.alive:
+    for family in families:
+        for individual in individuals:
+            if individual.birthday:
+                orgDate = individual.birthday.strftime("%Y-%m-%d")
+                date_format = '%Y-%m-%d'
+
+                dtObj = datetime.strptime(orgDate, date_format)
+
+                now = datetime.utcnow()
+                now = now.date()
+                age = dateutil.relativedelta.relativedelta(now, dtObj)
+                age = age.years
+                if 30 < age:
+                
+                    if individual.uid == family.husband or individual.uid == family.wife: 
                         count = count + 1
-            
-                        print(individual.name)
-            
+                    else:
+                         print(individual.name)
+
     if count == 0:
         report_error("US30", "no single living people over the age of 30 that have never been married.", [individual.uid])
         return_status = True
